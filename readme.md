@@ -3,7 +3,8 @@
 
 ## What does this plugin do
 
-Allow you to do this in <code>build.gradle</code>.
+Allow you to do following in <code>build.gradle</code>. <br/>
+In the background it will do <code>ext.artifactId = 'the-artifact-id'</code>.
 
 ```groovy
 id 'the-artifact-id'
@@ -25,3 +26,11 @@ apply plugin: 'com.nicholasworkshop.artifactid'
 
 id 'the-artifact-id'
 ```
+
+## DSL
+
+| Method                        | Description                                                        | 
+| ----------------------------- | ------------------------------------------------------------------ |
+| <code>void id(String)<code>   | Set Id.                                                            | 
+| <code>String getId()</code>   | Return the id, <code>null</code> will be reutned if id is not set. |
+| <code>boolean hasId()</code>  | Return if id is set.                                               |
