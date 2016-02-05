@@ -57,10 +57,14 @@ uploadArchives {
                 signing.signPom(deployment)
             }
             repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
-                authentication(userName: getProperty('upload.username'), password: getProperty('upload.password'))
+                authentication(
+                        userName: hasProperty('upload.username') ? getProperty('upload.username') : "",
+                        password: hasProperty('upload.password') ? getProperty('upload.password') : "")
             }
             snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
-                authentication(userName: getProperty('upload.username'), password: getProperty('upload.password'))
+                authentication(
+                        userName: hasProperty('upload.username') ? getProperty('upload.username') : "",
+                        password: hasProperty('upload.password') ? getProperty('upload.password') : "")
             }
         }
     }
