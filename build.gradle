@@ -1,6 +1,7 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'signing'
+apply plugin: 'jacoco'
 
 group 'com.nicholasworkshop'
 version '1.0.0'
@@ -19,6 +20,13 @@ install {
     group 'publish'
     repositories.mavenInstaller {
         pom.artifactId = 'artifactid-gradle'
+    }
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled = true
     }
 }
 
