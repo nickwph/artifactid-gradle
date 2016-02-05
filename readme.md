@@ -38,4 +38,4 @@ id 'the-artifact-id'
 ## Build Status
 
 [![Circle CI](https://circleci.com/gh/nickwph/artifactid-gradle.svg?style=shield)](https://circleci.com/gh/nickwph/artifactid-gradle)
-[![Coverage Status](https://coveralls.io/repos/github/nickwph/artifactid-gradle/badge.svg?branch=master)](https://coveralls.io/github/nickwph/artifactid-gradle?branch=master)
+[![codecov.io](https://codecov.io/github/nickwph/artifactid-gradle/coverage.svg?branch=master)](https://codecov.io/github/nickwph/artifactid-gradle?branch=master)
