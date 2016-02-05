@@ -24,10 +24,10 @@ install {
 }
 
 jacocoTestReport {
+    name 'jacoco'
+    group 'report'
     dependsOn test
-    reports {
-        xml.enabled = true
-    }
+    reports.xml.enabled = true
 }
 
 uploadArchives {
