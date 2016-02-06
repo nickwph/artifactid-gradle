@@ -3,8 +3,10 @@ package com.nicholasworkshop.artifactid
 import org.gradle.api.Project
 import org.gradle.api.internal.project.DefaultProject
 import org.gradle.testfixtures.ProjectBuilder
-import org.junit.Assert
 import org.junit.Test
+
+import static org.junit.Assert.assertEquals
+
 /**
  * Created by nickwph on 1/23/16.
  */
@@ -18,17 +20,17 @@ class ArtifactIdPluginTest {
         project.apply(plugin: 'com.nicholasworkshop.artifactid')
         project.id ARTIFACT_ID
         project.evaluate()
-        Assert.assertEquals(true, project.hasId())
-        Assert.assertEquals(ARTIFACT_ID, project.getId())
+        assertEquals(true, project.hasId())
+        assertEquals(ARTIFACT_ID, project.getId())
     }
 
-    @Test(expected = MissingPropertyException)
-    void testApply_whenNotSet() throws Exception {
+    @Test
+    void testApply_whenNotSet_shouldReturnNull() throws Exception {
         Project project = createAndroidLibraryProject()
         project.apply(plugin: 'com.nicholasworkshop.artifactid')
         project.evaluate()
-        Assert.assertEquals(false, project.hasId())
-        project.getId() // should throw exception
+        assertEquals(false, project.hasId())
+        assertEquals(null, project.getId());
     }
 
     @Test
@@ -37,8 +39,8 @@ class ArtifactIdPluginTest {
         project.apply(plugin: 'com.nicholasworkshop.artifactid')
         project.id ARTIFACT_ID
         project.evaluate()
-        Assert.assertEquals(true, project.hasId())
-        Assert.assertEquals(ARTIFACT_ID, project.getId())
+        assertEquals(true, project.hasId())
+        assertEquals(ARTIFACT_ID, project.getId())
     }
 
     private static Project createAndroidApplicaitonProject() {
