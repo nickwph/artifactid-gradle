@@ -66,13 +66,13 @@ uploadArchives {
             }
             repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
                 authentication(
-                        userName: hasProperty('upload.username') ? getProperty('upload.username') : "",
-                        password: hasProperty('upload.password') ? getProperty('upload.password') : "")
+                        userName: project.hasProperty('upload.username') ? project.getProperty('upload.username') : "",
+                        password: project.hasProperty('upload.password') ? project.getProperty('upload.password') : "")
             }
             snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
                 authentication(
-                        userName: hasProperty('upload.username') ? getProperty('upload.username') : "",
-                        password: hasProperty('upload.password') ? getProperty('upload.password') : "")
+                        userName: project.hasProperty('upload.username') ? project.getProperty('upload.username') : "",
+                        password: project.hasProperty('upload.password') ? project.getProperty('upload.password') : "")
             }
         }
     }
