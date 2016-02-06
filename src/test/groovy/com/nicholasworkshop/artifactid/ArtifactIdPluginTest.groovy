@@ -5,28 +5,40 @@ import org.gradle.api.internal.project.DefaultProject
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Assert
 import org.junit.Test
-
 /**
  * Created by nickwph on 1/23/16.
  */
 class ArtifactIdPluginTest {
 
+    private static final ARTIFACT_ID = UUID.randomUUID().toString()
+
     @Test
     void testApply() throws Exception {
         Project project = createAndroidApplicaitonProject()
         project.apply(plugin: 'com.nicholasworkshop.artifactid')
-        project.id 'abcde'
+        project.id ARTIFACT_ID
         project.evaluate()
-        Assert.assertEquals('abcde', project.getId())
+        Assert.assertEquals(true, project.hasId())
+        Assert.assertEquals(ARTIFACT_ID, project.getId())
+    }
+
+    @Test(expected = MissingPropertyException)
+    void testApply_whenNotSet() throws Exception {
+        Project project = createAndroidLibraryProject()
+        project.apply(plugin: 'com.nicholasworkshop.artifactid')
+        project.evaluate()
+        Assert.assertEquals(false, project.hasId())
+        project.getId() // should throw exception
     }
 
     @Test
-    void testApply_onLibraryProject() throws Exception {
+    void testApply_whenIsLibraryProject() throws Exception {
         Project project = createAndroidLibraryProject()
         project.apply(plugin: 'com.nicholasworkshop.artifactid')
-        project.id 'abcde'
+        project.id ARTIFACT_ID
         project.evaluate()
-        Assert.assertEquals('abcde', project.getId())
+        Assert.assertEquals(true, project.hasId())
+        Assert.assertEquals(ARTIFACT_ID, project.getId())
     }
 
     private static Project createAndroidApplicaitonProject() {
