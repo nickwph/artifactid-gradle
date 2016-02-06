@@ -24,7 +24,10 @@ public class ArtifactIdPlugin implements Plugin<ProjectInternal> {
     }
 
     String getId() {
-        return project.hasProperty('artifactId') ? project.ext.artifactId : null
+        if (hasId()) {
+            return project.ext.artifactId
+        }
+        throw new MissingPropertyException("Cannot get property 'id' on extra properties extension as it does not exist");
     }
 
     boolean hasId() {
