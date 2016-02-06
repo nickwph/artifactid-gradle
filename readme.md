@@ -19,7 +19,7 @@ buildscript {
         maven { url "https://oss.sonatype.org/service/local/staging/deploy/maven2" }
     }
     dependencies {
-        classpath 'com.nicholasworkshop:gradle-maven:1.0.0'
+        classpath 'com.nicholasworkshop:gradle-artifactid:1.0.0'
     }
 }
 

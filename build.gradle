@@ -19,7 +19,7 @@ dependencies {
 install {
     group 'publish'
     repositories.mavenInstaller {
-        pom.artifactId = 'artifactid-gradle'
+        pom.artifactId = 'gradle-artifactid'
     }
 }
 
