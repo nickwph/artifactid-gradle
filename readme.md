@@ -16,9 +16,6 @@ id 'the-artifact-id'
 
 ```groovy
 buildscript {
-    repositories {
-        maven { url "https://oss.sonatype.org/content/groups/staging" }
-    }
     dependencies {
         classpath 'com.nicholasworkshop:gradle-artifactid:1.0.0'
     }
