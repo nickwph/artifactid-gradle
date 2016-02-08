@@ -1,7 +1,10 @@
 # Artifact Id Gradle Plugin
-[![Circle CI](https://circleci.com/gh/nickwph/artifactid-gradle.svg?style=shield)](https://circleci.com/gh/nickwph/artifactid-gradle)
-[![codecov.io](https://codecov.io/github/nickwph/artifactid-gradle/coverage.svg?branch=master)](https://codecov.io/github/nickwph/artifactid-gradle?branch=master)
-[ ![Download](https://api.bintray.com/packages/nickwph/maven/artifactid-gradle/images/download.svg) ](https://bintray.com/nickwph/maven/artifactid-gradle/_latestVersion)
+[![Circle CI](https://img.shields.io/circleci/project/nickwph/artifactid-gradle.svg)]
+(https://circleci.com/gh/nickwph/artifactid-gradle)
+[![codecov.io](https://img.shields.io/codecov/c/github/nickwph/artifactid-gradle.svg)]
+(https://codecov.io/github/nickwph/artifactid-gradle)
+[ ![Download](https://img.shields.io/bintray/v/nickwph/maven/artifactid-gradle.svg)]
+(https://bintray.com/nickwph/maven/artifactid-gradle/_latestVersion)
 
 ## What does this plugin do
 
