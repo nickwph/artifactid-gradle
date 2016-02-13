@@ -19,6 +19,9 @@ id 'the-artifact-id'
 
 ```groovy
 buildscript {
+    repositories {
+        jcenter()
+    }
     dependencies {
         classpath 'com.nicholasworkshop:gradle-artifactid:1.0.0'
     }

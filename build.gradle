@@ -3,6 +3,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: 'jacoco'
 
+ext.artifactId = 'gradle-artifactid'
 group 'com.nicholasworkshop'
 version '1.0.0'
 
@@ -14,13 +15,6 @@ dependencies {
     compile gradleApi()
     compile localGroovy()
     testCompile 'com.android.tools.build:gradle:1.5.0'
-}
-
-install {
-    group 'publish'
-    repositories.mavenInstaller {
-        pom.artifactId = 'gradle-artifactid'
-    }
 }
 
 jacocoTestReport {
@@ -49,17 +43,23 @@ signing {
     sign configurations.archives
 }
 
+install {
+    group 'publish'
+    repositories.mavenInstaller {
+        pom.artifactId = project.artifactId
+    }
+}
+
 uploadArchives {
     group 'publish'
     repositories {
         mavenDeployer {
             pom.groupId = project.group
-            pom.artifactId = project.install.repositories.mavenInstaller.pom.artifactId
+            pom.artifactId = project.artifactId
             pom.version = project.version
             pom.project {
-                name 'Artifact ID'
+                name 'Artifact ID Plugin'
                 packaging 'jar'
-                description 'N/A'
                 url 'https://github.com/nickwph/artifactid-gradle'
                 scm {
                     url 'https://github.com/nickwph/artifactid-gradle'
@@ -83,16 +83,19 @@ uploadArchives {
             beforeDeployment { MavenDeployment deployment ->
                 signing.signPom(deployment)
             }
-            repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
-                authentication(
-                        userName: project.hasProperty('upload.username') ? project.getProperty('upload.username') : "",
-                        password: project.hasProperty('upload.password') ? project.getProperty('upload.password') : "")
+            String username = getGradleProperty('publish.maven.bintray.username');
+            String password = getGradleProperty('publish.maven.bintray.apiKey')
+            String id = "bintray-$username-maven"
+            repository(id: id, url: 'https://api.bintray.com/maven/nickwph/maven/artifactid-gradle') {
+                authentication(userName: username, password: password)
             }
-            snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
-                authentication(
-                        userName: project.hasProperty('upload.username') ? project.getProperty('upload.username') : "",
-                        password: project.hasProperty('upload.password') ? project.getProperty('upload.password') : "")
+            snapshotRepository(id: id, url: 'https://oss.jfrog.org/artifactory/list/oss-snapshot-local') {
+                authentication(userName: username, password: password)
             }
         }
     }
+}
+
+def getGradleProperty(String name) {
+    return hasProperty(name) ? getProperty(name) : ""
 }
