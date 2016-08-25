@@ -73,7 +73,7 @@ class ArtifactIdPluginTest {
 
     private static void linkAndroidSdkDir(DefaultProject project) {
         File file = new File(project.projectDir.toString(), "local.properties")
-        File local = new File("local.properties")
+        File local = new File("../local.properties")
         if (local.exists()) {
             file << local.text
         } else {

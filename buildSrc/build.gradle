@@ -1,0 +1,102 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'signing'
+apply plugin: 'jacoco'
+
+ext.artifactId = 'gradle-artifactid'
+group 'com.nicholasworkshop'
+version '1.0.0'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    testCompile 'com.android.tools.build:gradle:2.1.0'
+}
+
+jacocoTestReport {
+    name 'jacoco'
+    group 'report'
+    dependsOn test
+    reports.xml.enabled = true
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+signing {
+//    sign configurations.archives
+}
+
+install {
+    group 'publish'
+    repositories.mavenInstaller {
+        pom.artifactId = artifactId
+    }
+}
+
+uploadArchives {
+    group 'publish'
+    repositories {
+        mavenDeployer {
+            pom.groupId = project.group
+            pom.artifactId = artifactId
+            pom.version = project.version
+            pom.project {
+                name 'Artifact ID Plugin'
+                packaging 'jar'
+                url 'https://github.com/nickwph/artifactid-gradle'
+                scm {
+                    url 'https://github.com/nickwph/artifactid-gradle'
+                    connection 'scm:git@github.com:nickwph/artifactid-gradle.git'
+                    developerConnection 'scm:git@github.com:nickwph/artifactid-gradle.git'
+                }
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'nickwph'
+                        name 'Nicholas Wong'
+                    }
+                }
+            }
+            beforeDeployment { MavenDeployment deployment ->
+                project.signing.signPom(deployment)
+            }
+            String packageName = 'artifactid-gradle'
+            String username = getGradleProperty('publish.maven.bintray.username');
+            String password = getGradleProperty('publish.maven.bintray.apiKey')
+            String id = "bintray-$username-maven"
+            repository(id: id, url: "https://api.bintray.com/maven/$username/maven/$packageName") {
+                authentication(userName: username, password: password)
+            }
+            snapshotRepository(id: id, url: 'https://oss.jfrog.org/artifactory/list/oss-snapshot-local') {
+                authentication(userName: username, password: password)
+            }
+        }
+    }
+}
+
+def getGradleProperty(String name) {
+    return hasProperty(name) ? getProperty(name) : ""
+}

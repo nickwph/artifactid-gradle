@@ -1,0 +1,8 @@
+apply plugin: 'java'
+apply plugin: 'com.nicholasworkshop.artifactid'
+
+id "demo-app"
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
